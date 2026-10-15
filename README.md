@@ -1,3 +1,8 @@
+A projekt építése
+    build.bat futtatása
+
+Csak futtatás:
+    run.bat futtatása
 
 Fájlrendszer a projektben:
     .c file-ok a src mappában
@@ -6,3 +11,4 @@ Fájlrendszer a projektben:
     dokumentáció a docs mappában
     
 Kasza Zsombor Programozás alapjai 1 - Nagyházi
+A DOCS FILE_T TÖRÖLD KI
