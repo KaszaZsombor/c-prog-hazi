@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "board.h"
+#include "move.h"
 #include "types.h"
 #include "ui.h"
 

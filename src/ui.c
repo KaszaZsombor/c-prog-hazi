@@ -1,8 +1,7 @@
 #include "ui.h"
 #include "board.h"
+#include "move.h"
 #include <stdio.h>
-
-/* ################################### UI SOURCE ###################################################*/
 
 /* Egy switch segítségével a megfelelő típust megfelelő karakterre váltja*/
 char get_char_for_piece_t(CH_piece_t type)
@@ -18,7 +17,6 @@ char get_char_for_piece_t(CH_piece_t type)
         default:return' ';
     }
 }
-
 
 /* Ugyanaz mint a piece-es, csak a színre ad karaktert*/
 char get_char_for_color_t(CH_color_t color)
@@ -53,3 +51,5 @@ void UI_draw_board(CH_board board)
     }
     printf("%s\n", line);
 }
+
+/* Visszaad 1-et ha újrapróba kell, visszaad 0-t ha nem*/

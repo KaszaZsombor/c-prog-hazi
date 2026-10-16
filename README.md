@@ -9,10 +9,8 @@ FÁJLRENDSZER:
 
 MEGJ:
     - ha nem létezik a bin mappa, a make legenerálja
-
-Minden header tetején ellenőrizve van, hogy az adott fájlban korábban már includolva lett-e a header,
-így a program fordításánal a duplikált kód elkerülhető.
-
+    - minden header fájlban az #ifndef és #define segítségével biztosítva van,
+      hogy ne legyen többszörös deklaráció. 
     
 FELADAT :
     BOARD SETUP CLEANUP

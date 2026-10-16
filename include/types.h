@@ -9,16 +9,19 @@ typedef enum CH_color_t {BLACK, WHITE, NO_COLOR}                                
 
 /* A lépés fajtájának tárolásával egyszerűbb a különleges lépések kezelése*/
 typedef enum CH_move_t   {NORMAL, CASTLE_SHORT, CASTLE_LONG, DOUBLE_PAWN,
-                             EN_PASSANT}                                         CH_move_t;
-typedef enum CH_game_state_t  { PLAYING, STALEMATE, WHITE_WON, BLACK_WON}        CH_game_state_t;
+                             EN_PASSANT, ERROR}                                  CH_move_t;
+typedef enum CH_game_state_t  { PLAYING, DRAW, WHITE_WON, BLACK_WON}             CH_game_state_t;
 
 /* #################################################### STRUCT ###############################################*/
 
 /* A position indexelése bal felül kezdődik (A8) == (0,0) ; (H1) == (7,7) */
 typedef struct CH_position {int x, y;}                                           CH_position;
-typedef struct CH_square   {CH_color_t piece_color; CH_piece_t piece_type;}      CH_square;
 typedef struct CH_move     {CH_position startPos, endPos; CH_move_t type;}       CH_move;
-typedef struct CH_piece    {CH_piece_t type; CH_color_t color;}                  CH_piece;
+typedef struct CH_piece    {CH_piece_t type; CH_color_t color; int has_moved;}   CH_piece;
+typedef struct CH_square   {CH_piece piece;}                                     CH_square;
+/* Egy bábu lépéseinek listáját tartalmazza, amik szabályosak*/
+typedef struct CH_movelist {CH_piece piece; int movecount; 
+                             CH_move moves[64];}                                 CH_movelist;
 
 /*A játék tárolja a jelenlegi táblát és a játék státuszát, a tábla tárolja az összes mezőt,
 a sáncolási jogokat. Ezt azért hogy elég legyen a tábla önmagában a lépés helyességének eldöntésére*/
