@@ -1,28 +1,27 @@
 #include "board.h"
 
+
+/* visszaadja a keresett pozíció a táblán van e?*/
+int CH_position_isvalid(CH_position position)
+{
+    return (position.x >= 0 && position.x < 8 && position.y >= 0 && position.y < 8);
+}
+
 /* Egy pozjciót megadva tudjuk egy mező bábuját változtatni. Az CH_position indexelés bal felül indul*/
 CH_board CH_set_piece(CH_board board, CH_piece piece, CH_position position)
 {
-    /* A tömbból való kilépés elkerülése miatt, biztosítjuk az indexeket 0-7-ig*/
-    if(position.x < 0)position.x *= -1;
-    if(position.y < 0)position.y *= -1;
-    position.x = position.x % 8;
-    position.y = position.y % 8;
-
+    /* A túlindexelés ellen, biztosítjuk az indexeket 0-7-ig*/
+    if(!CH_position_isvalid(position))return board;
     /* a megfelelő mező iválasztása a pozíció alapján, átváltás CH_position és tömbindex között*/
     board.squares[ position.y * 8 + position.x ].piece = piece;
-
     return board;
 }
 
 /* Ezért lett a CH_piece struktúra létrehozva, CH_position-re ad vissza bábut*/
 CH_piece CH_get_piece_from_position(CH_board board, CH_position position)
 {
-    /* A tömbból való kilépés elkerülése miatt, biztosítjuk az indexeket 0-7-ig*/
-    if(position.x < 0)position.x *= -1;
-    if(position.y < 0)position.y *= -1;
-    position.x = position.x % 8;
-    position.y = position.y % 8;
+    /* A túlindexelés ellen, biztosítjuk az indexeket 0-7-ig*/
+    if(!CH_position_isvalid(position))return(CH_piece){.color = NO_COLOR, .has_moved = 0, .type = NO_PIECE};
     return board.squares[ position.y * 8 + position.x ].piece;
 }
 

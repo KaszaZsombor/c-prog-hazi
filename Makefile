@@ -7,7 +7,6 @@ OBJ_DIR = bin
 
 SRCS = $(wildcard $(SRC_DIR)/*.c)
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
-DEPS = $(OBJS:.o=.d)
 
 .PHONY: all run clean
 
@@ -28,5 +27,3 @@ run: $(TARGET)
 clean:
 	-rmdir /S /Q $(OBJ_DIR)
 	-del /Q $(TARGET)
-
--include $(DEPS)

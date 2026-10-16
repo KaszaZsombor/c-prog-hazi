@@ -40,10 +40,11 @@ void UI_draw_board(CH_board board)
         /*sorok*/
         for(int j = 0; j < 8; j++)
         {
+            CH_piece piece = CH_get_piece_from_position(board,(CH_position){j,i});
             /* A szín alapján a charachter kiválasztása*/
-            char cc = get_char_for_color_t(CH_get_piece_from_position(board,(CH_position){j,i}).color);
+            char cc = get_char_for_color_t(piece.color);
             /* A bábutípus alapján a karakter kiválasztása*/
-            char pc = get_char_for_piece_t(CH_get_piece_from_position(board, (CH_position){j,i}).type);
+            char pc = get_char_for_piece_t(piece.type);
             printf("| %c%c ", cc,pc);
         }
         printf("|");
@@ -51,5 +52,3 @@ void UI_draw_board(CH_board board)
     }
     printf("%s\n", line);
 }
-
-/* Visszaad 1-et ha újrapróba kell, visszaad 0-t ha nem*/

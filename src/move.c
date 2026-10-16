@@ -1,10 +1,6 @@
 #include "move.h"
 
-/* visszaadja a keresett pozíció a táblán van e?*/
-int CH_position_isvalid(CH_position position)
-{
-    return (position.x >= 0 && position.x < 8 && position.y >= 0 && position.y < 8);
-}
+
 
 /* A szín ellentétét visszaadó függvény*/
 CH_color_t CH_opponent_color_t(CH_color_t color)
@@ -20,11 +16,10 @@ CH_board CH_make_normal_move(CH_board board, CH_move move)
     /* megnézzük mit mozgatunk*/
     CH_piece piece = CH_get_piece_from_position(board, move.startPos);
     piece.has_moved = 1;
-
     /* átmozgatjuk*/
-    board = CH_set_piece(board, (CH_piece){NO_PIECE, NO_COLOR, 0}, move.startPos);
+    board = CH_set_piece(board, (CH_piece)
+    {.type= NO_PIECE, .color = NO_COLOR, .has_moved = 0}, move.startPos);
     board = CH_set_piece(board, piece, move.endPos);
-    
     return board;
 }
 
