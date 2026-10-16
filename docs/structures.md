@@ -16,6 +16,7 @@ STRUKTÚRÁK:
     - CH_square: A mező struktúra, tárolja a rajta lévő bábu típusát és színét. Mindkettő lehet nem létező,
       ez az enumoknál le van írva részletezve
     - CH_move: Tárolja a lépést végző bábu kezdeti és vég CH_position-jét, és a lépés típusát
+    - CH_piece: A bábuadatokat egy helyen tárolni tudó struktúra
     - CH_board: A táblában tárololt adatokból el kell tudni dönteni korábbi állások ismerése nélkül,
       hogy egy lépés szabályos-e. Ezért tárolni kell mindkét szín mindkét irányba való sáncolási engedélyét és az olyan mezőket, ahova en-passant lépéssel lehet lépni. Ez ha nincs ilyen lépés -1 -1 értékű 
     - CH_game: Tárolja a játszma állását, ez az enumoknál szerepel. És tárolja a jelenlegi táblát.
