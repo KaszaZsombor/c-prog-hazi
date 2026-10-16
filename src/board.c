@@ -81,8 +81,6 @@ CH_board CH_set_board_to_default()
     default_board = CH_set_piece(default_board, WHITE, KNIGHT, (CH_position){6, 7});
     default_board = CH_set_piece(default_board, WHITE, ROOK,   (CH_position){7, 7});
 
-    
-
     return default_board;
 }
 

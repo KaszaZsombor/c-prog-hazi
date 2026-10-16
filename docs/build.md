@@ -1,4 +1,4 @@
-                BUILD
+BUILD
 
 ÉPÍTÉSE A PROJEKTNEK:
     - a projekt make-et használ
@@ -6,7 +6,5 @@
     - a projekt építése és futtatása: make run
 
 CLEANUP:
-    -valami számomra váratlan probléma esetén sokszokr megoldás volt valamiért,
-    a következő parancs: make clean
-    - ez törli az összes létrehozott .o és .exe file-t
-    - a következő make parancs teljesen tisztán indul
+    - a make clean parancs kitörli a bin mappát és minden elemét
+    - a make clean parancs törli a .exe végű fájlokat

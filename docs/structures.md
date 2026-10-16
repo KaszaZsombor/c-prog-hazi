@@ -1,4 +1,4 @@
-                      STRUKTÚRÁK
+STRUKTÚRÁK
 
 - a projekt fő struktúrái a types.h fájlban vannak, kommentekkel
 - ide leírom a használt enumokat is
