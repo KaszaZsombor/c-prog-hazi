@@ -10,7 +10,7 @@ typedef enum CH_color_t {BLACK, WHITE, NO_COLOR}                                
 /* A lépés fajtájának tárolásával egyszerűbb a különleges lépések kezelése*/
 typedef enum CH_move_t   {NORMAL, CASTLE_SHORT, CASTLE_LONG, DOUBLE_PAWN,
                              EN_PASSANT}                                         CH_move_t;
-typedef enum CH_game_state_t  {MATE, STALEMATE, PLAYING, WHITE_WON, BLACK_WON}   CH_game_state_t;
+typedef enum CH_game_state_t  { PLAYING, STALEMATE, WHITE_WON, BLACK_WON}        CH_game_state_t;
 
 /* #################################################### STRUCT ###############################################*/
 

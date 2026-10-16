@@ -8,7 +8,7 @@ ENUMOK:
     - CH_color_t: A tábla lehetséges színállapotai, tartalmaz NO_COLOR színt. Ez akkor fontos,
       ha egy mezőn nem áll bábu.
     - CH_move_t: A lépések típusát tárolja
-    - CH_game_state_t: A játék különböző állapotai: JÁTÉK, MATT, PATT, FEHÉR GYŐZÖTT, VILÁGOS GYŐZÖTT
+    - CH_game_state_t: A játék különböző állapotai: JÁTÉK, PATT, FEHÉR GYŐZÖTT, FEKETE GYŐZÖTT
 
 STRUKTÚRÁK:
     - CH_position: 2 intet tartalmaz, ezek a tábla mezőinek indexeit jelölik. Az indexelés
