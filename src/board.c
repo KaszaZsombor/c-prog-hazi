@@ -4,7 +4,7 @@
 
 
 /* Egy pozjciót megadva tudjuk egy mező bábuját változtatni. Az CH_position indexelés bal felül indul*/
-CH_board CH_set_piece(CH_board board, CH_piece_t type, CH_color_t color, CH_position position)
+CH_board CH_set_piece(CH_board board, CH_color_t color, CH_piece_t type, CH_position position)
 {
     /* A tömbból való kilépés elkerülése miatt, biztosítjuk az indexeket 0-7-ig*/
     position.x = position.x % 8;
@@ -16,12 +16,12 @@ CH_board CH_set_piece(CH_board board, CH_piece_t type, CH_color_t color, CH_posi
     return board;
 }
 
-
 /* Egy üres tábla visszaküldése a hívónak*/
 CH_board CH_create_empty_board()
 {
     /* Az üres táblának legyen a következő lépésen lévője fehér, ne tiltson sáncot*/
     CH_board empty_board;
+    empty_board.en_passant_position = (CH_position){-1,-1};
     empty_board.next_color = WHITE;
     for(int i = 0; i < 64; i++)
     {
@@ -44,5 +44,10 @@ CH_board CH_set_board_to_default()
     /* Az ürestábló jó alap, csak az alapállás bábuit kell beállítani*/
     CH_board default_board = CH_create_empty_board();
     /*Gyalogok*/
-    
+    for(int i = 0; i < 8; i++)
+    {
+        default_board = CH_set_piece(default_board, BLACK, PAWN, (CH_position){i, 1});
+        default_board = CH_set_piece(default_board, WHITE, PAWN, (CH_position){i, 6});
+    }
+    return default_board;
 }
