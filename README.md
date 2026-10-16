@@ -1,14 +1,13 @@
-A projekt építése
-    build.bat futtatása
+Kasza Zsombor - Programozás alapjai 1 - Nagyházi - SAKK PROGRAM
 
-Csak futtatás:
-    run.bat futtatása
+FÁJLRENDSZER:
+    - .c fájlok az src mappában
+    - .h fájlok az include mappában
+    - .o fájlok a build mappában
+    - a lefordított program a gyökérkönyvtárban van, nem a build mappában
+    - .md dokumentációk a docs fileban
 
-Fájlrendszer a projektben:
-    .c file-ok a src mappában
-    .h file-ok az include mappában
-    külső könyvtárak a lib mappában
-    dokumentáció a docs mappában
+Minden header tetején ellenőrizve van, hogy az adott fájlban korábban már includolva lett-e a header,
+így a program fordításánal a duplikált kód elkerülhető.
+
     
-Kasza Zsombor Programozás alapjai 1 - Nagyházi
-A DOCS FILE_T TÖRÖLD KI

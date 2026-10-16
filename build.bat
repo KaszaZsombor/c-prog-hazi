@@ -1,1 +1,0 @@
-gcc -g -Wall -Wextra -Iinclude -Ilib/include/SDL2 -Llib/lib src/main.c -o build/geo.exe -lmingw32 -lSDL2main -lSDL2 -lm
