@@ -10,6 +10,8 @@ int main(void)
     CH_board board = CH_create_default_board();
     UI_draw_board(board);
 
+
+
     CH_move a = PA_parse_string("afaa");
     board = CH_make_move(board, a);
     UI_draw_board(board);
@@ -22,13 +24,10 @@ int main(void)
     board = CH_make_move(board, c);
     UI_draw_board(board);
     
-
-
     CH_move move0 = PA_parse_string("a2a4");
     board = CH_make_move(board, move0);
     UI_draw_board(board);
     
-
     CH_move move2 = PA_parse_string("a1a3");
     board = CH_make_move(board, move2);
     UI_draw_board(board);
@@ -47,6 +46,18 @@ int main(void)
 
     CH_move move5 = PA_parse_string("b8h8");
     board = CH_make_move(board, move5);
+    UI_draw_board(board);
+
+    CH_move r = PA_parse_string("c8b7");
+    board = CH_make_move(board, r);
+    UI_draw_board(board);
+    
+    r = PA_parse_string("b7a8");
+    board = CH_make_move(board, r);
+    UI_draw_board(board);
+
+    r = PA_parse_string("b7g2");
+    board = CH_make_move(board, r);
     UI_draw_board(board);
 
     return 0;

@@ -11,7 +11,7 @@ const CH_position UPLEFT    = {-1,-1};
 const CH_position DOWNRIGHT = { 1, 1};
 const CH_position DOWNLEFT  = {-1, 1};
 
-/* TESZTELÉSE A BÁSTYALÉPÉSNEK*/
+/* TESZTELÉSE ÉS TYPE MEGHATÁROZÁSA A BÁSTYALÉPÉSNEK*/
 CH_move _test_rook_move(CH_board board, CH_move move, CH_color_t color)
 {
     /* Minden irány amibe léphet*/
@@ -59,6 +59,102 @@ CH_move _test_rook_move(CH_board board, CH_move move, CH_color_t color)
     return move;
 }
 
+
+/* TESZTELÉSE ÉS TYPE MEGHATÁROZÁSA A FUTÓLÉPÉSNEK*/
+CH_move _test_bishop_move(CH_board board, CH_move move, CH_color_t color)
+{
+    /*Bástyához hasonló, a tesztelendő irányok mások*/
+    CH_position offsets    [ 4] = {UPRIGHT, UPLEFT, DOWNRIGHT, DOWNLEFT};
+    CH_position valid_ends [16] = {0};
+    int         valid_count     = 0;
+
+    /* Végigmegyünk a 4 lehetséges irányon*/
+    for(int j= 0; j < 4; j++)
+    {
+        /*Állítsuk a keresett pozíciót a mostanira*/
+        CH_position searched_pos = move.start_pos;
+        for(int i = 0; i < 8; i++)
+        {
+            /* Mivel a get_piece nem ellenőriz indexet, itt korábban kell ellenőrizni*/
+            searched_pos         = CH_add_positions           (offsets[j], searched_pos);
+            if(!CH_is_on_board(searched_pos))break;
+            CH_piece piece_found = CH_get_piece_from_position (board, searched_pos);
+            
+            /* Ha a mező üres: */
+            if(piece_found.type == NO_PIECE)
+            {
+                /* A pozíció jó lesz, hozzáad, számlálót növel*/
+                valid_ends[valid_count] = searched_pos;valid_count++;
+            }
+            else if( piece_found.color != color)
+            {
+                /* Ha a talált bábu másik színű a lépés még helyes,
+                de nincs több az irányban, ezért kilépünk és megyünk a következőre*/
+                valid_ends[valid_count] = searched_pos;valid_count++;break;
+            }else break; /* Ha a talált bábu fehér*/
+        }
+    }
+
+    for(int i = 0; i < valid_count; i++)
+    {
+        if(CH_pos_equals(valid_ends[i], move.end_pos))
+        {
+            move.type = NORMAL;
+            return move;
+        }
+    }
+    move.type = ERROR;
+    return move;
+}
+
+/* TESZTELÉSE ÉS TYPE MEGHATÁROZÁSA A VEZÉRLÉPÉSNEK*/
+CH_move _test_queen_move(CH_board board, CH_move move, CH_color_t color)
+{
+    /*Bástyához hasonló, a tesztelendő irányok mások*/
+    CH_position offsets    [ 8] = {UPRIGHT, UPLEFT, DOWNRIGHT, DOWNLEFT, UP, DOWN,LEFT,RIGHT};
+    CH_position valid_ends [16] = {0};
+    int         valid_count     = 0;
+
+    /* Végigmegyünk a 4 lehetséges irányon*/
+    for(int j= 0; j < 8; j++)
+    {
+        /*Állítsuk a keresett pozíciót a mostanira*/
+        CH_position searched_pos = move.start_pos;
+        for(int i = 0; i < 8; i++)
+        {
+            /* Mivel a get_piece nem ellenőriz indexet, itt korábban kell ellenőrizni*/
+            searched_pos         = CH_add_positions           (offsets[j], searched_pos);
+            if(!CH_is_on_board(searched_pos))break;
+            CH_piece piece_found = CH_get_piece_from_position (board, searched_pos);
+            
+            /* Ha a mező üres: */
+            if(piece_found.type == NO_PIECE)
+            {
+                /* A pozíció jó lesz, hozzáad, számlálót növel*/
+                valid_ends[valid_count] = searched_pos;valid_count++;
+            }
+            else if( piece_found.color != color)
+            {
+                /* Ha a talált bábu másik színű a lépés még helyes,
+                de nincs több az irányban, ezért kilépünk és megyünk a következőre*/
+                valid_ends[valid_count] = searched_pos;valid_count++;break;
+            }else break; /* Ha a talált bábu fehér*/
+        }
+    }
+
+    for(int i = 0; i < valid_count; i++)
+    {
+        if(CH_pos_equals(valid_ends[i], move.end_pos))
+        {
+            move.type = NORMAL;
+            return move;
+        }
+    }
+    move.type = ERROR;
+    return move;
+}
+
+
 /* Beállítja a lépés típusát, itt ellenőrzi a szabályosságot is*/
 CH_move _set_move_type(CH_board board, CH_move move)
 {
@@ -68,11 +164,17 @@ CH_move _set_move_type(CH_board board, CH_move move)
     CH_piece moving_piece = CH_get_piece_from_position(board, move.start_pos);
     CH_piece other_piece  = CH_get_piece_from_position(board,move.end_pos);
 
+    /* A megfelelő bábuhoz a megfelelő ellenőrzőfüggvény keresése*/
     if(moving_piece.color == other_piece.color){move.type = ERROR; return move;}
     switch(moving_piece.type)
     {
-        case NO_PIECE: move.type = ERROR;break;
-        case ROOK: move = _test_rook_move(board,move,moving_piece.color);
+        case ROOK:      move = _test_rook_move(board,move,moving_piece.color);    break;
+        case BISHOP:    move = _test_bishop_move(board,move,moving_piece.color);  break;
+        case QUEEN:     move = _test_queen_move(board,move,moving_piece.color);   break;
+        case KNIGHT:                                                              break;  
+        case PAWN:                                                                break;
+        case KING:                                                                break;
+        default:        move.type = ERROR;                                        break;
     }
 
     return move;
