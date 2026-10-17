@@ -1,5 +1,16 @@
 #include "board.h"
 
+/* Összead 2 pozíciót*/
+CH_position CH_add_positions(CH_position pos1, CH_position pos2)
+{
+    return (CH_position){ pos1.x + pos2.x , pos1.y + pos2.y};
+}
+
+/* ellenőrzi hogy 2 pozíció egyenlő-e*/
+int CH_pos_equals(CH_position pos1, CH_position pos2)
+{
+    return (pos1.x == pos2.x && pos1.y == pos2.y);
+}
 
 /* visszaadja a keresett pozíció a táblán van e?*/
 int CH_is_on_board(CH_position position)
@@ -36,17 +47,7 @@ CH_board CH_create_empty_board()
     empty_board.en_passant_position = (CH_position){-1,-1};
     
     CH_piece piece = (CH_piece){.color = NO_COLOR, .has_moved = 0, .type = NO_PIECE};
-    for(int i = 0; i < 64; i++)
-    {
-        if(i < 2)
-        {
-            /* Sáncok engedélyezése */
-            empty_board.can_castle_short[i] = 1;
-            empty_board.can_castle_long [i] = 1;
-        }
-        /* Minden mező üresre állítása*/
-        empty_board.squares[i].piece = piece;
-    }
+    for(int i = 0; i < 64; i++) empty_board.squares[i].piece = piece;
     return empty_board;
 }
 

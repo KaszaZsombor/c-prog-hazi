@@ -8,3 +8,4 @@ BUILD
 CLEANUP:
     - a make clean parancs kitörli a bin mappát és minden elemét
     - a make clean parancs törli a .exe végű fájlokat
+    - github feltöltések előtt 

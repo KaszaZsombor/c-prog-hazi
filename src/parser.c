@@ -1,6 +1,6 @@
 #include "parser.h"
 #include "move.h"
-#include <stdio.h>
+#include "board.h"
 
 int _char_to_index(char c)
 {
@@ -10,15 +10,15 @@ int _char_to_index(char c)
     érkező lépéseknél a betűk a-h közötti kisbetűk, a számok 1-8 közötti számok*/
     if (c >= 'a' && c <= 'h') return c-'a';
     if (c >= '1' && c <= '8') return 7-(c-'1');
+    else return c;
 }
 
 /* Ez a függvény nem állítja be a CH_move_t értéket, csak a pozíciókat adja vissza.
-A memóriaszemét elkerülése miatt mindent NORMAL-ra állít, ezt később a program átalakítja*/
-CH_move PA_parse_string(char string[4])
+A memóriaszemét elkerülése miatt mindent NORMAL-ra állít, ezt később a program átalakítja.
+AZ input mindig 4 elemű tömb lesz*/
+CH_move PA_parse_string(char* string)
 {
     CH_position from = (CH_position){.x = _char_to_index(string[0]), .y = _char_to_index(string[1])};
-    CH_position to = (CH_position){.x = _char_to_index(string[2]), .y = _char_to_index(string[3])};
-    printf("x:%d y:%d\n", from.x, from.y);
-    printf("x:%d y:%d\n", to.x, to.y);
-    return CH_create_move(from, to, NORMAL);
+    CH_position to =   (CH_position){.x = _char_to_index(string[2]), .y = _char_to_index(string[3])};
+    return CH_create_move(from,to,NORMAL);
 }

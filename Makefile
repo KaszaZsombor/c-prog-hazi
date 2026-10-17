@@ -1,5 +1,5 @@
 CC = gcc
-FLAGS = -Wall -Wextra -g -Iinclude
+FLAGS = -Wall -Wextra -g -Iinclude -Wshadow
 
 TARGET = sakk.exe
 SRC_DIR = src
