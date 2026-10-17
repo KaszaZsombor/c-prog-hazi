@@ -6,6 +6,14 @@ CH_position CH_add_positions(CH_position pos1, CH_position pos2)
     return (CH_position){ pos1.x + pos2.x , pos1.y + pos2.y};
 }
 
+/*Szoroz egy pozíciót egy egész számmal*/
+CH_position CH_multiply_position(CH_position pos, int x)
+{
+    pos.x *= x;
+    pos.y *= x;
+    return pos;
+}
+
 /* ellenőrzi hogy 2 pozíció egyenlő-e*/
 int CH_pos_equals(CH_position pos1, CH_position pos2)
 {

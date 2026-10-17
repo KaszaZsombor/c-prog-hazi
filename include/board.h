@@ -8,4 +8,5 @@
     int             CH_is_on_board              (CH_position);
     int             CH_pos_equals               (CH_position, CH_position);
     CH_position     CH_add_positions            (CH_position, CH_position);
+    CH_position     CH_multiply_position        (CH_position, int);
 #endif

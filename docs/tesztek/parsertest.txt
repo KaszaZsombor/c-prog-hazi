@@ -1,0 +1,11 @@
+    CH_move a = PA_parse_string("afaa");
+    board = CH_make_move(board, a);
+    UI_draw_board(board);
+    
+    CH_move b = PA_parse_string("sdsw");
+    board = CH_make_move(board, b);
+    UI_draw_board(board);
+    
+    CH_move c = PA_parse_string("a2dw");
+    board = CH_make_move(board, c);
+    UI_draw_board(board);

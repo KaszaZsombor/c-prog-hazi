@@ -1,0 +1,11 @@
+   r = PA_parse_string("d2d4");
+    board = CH_make_move(board, r);
+    UI_draw_board(board);
+
+    r = PA_parse_string("d1d2");
+    board = CH_make_move(board, r);
+    UI_draw_board(board);
+
+    r = PA_parse_string("d2e3");
+    board = CH_make_move(board, r);
+    UI_draw_board(board);
