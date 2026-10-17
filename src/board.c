@@ -2,7 +2,7 @@
 
 
 /* visszaadja a keresett pozíció a táblán van e?*/
-int CH_position_isvalid(CH_position position)
+int CH_is_on_board(CH_position position)
 {
     return (position.x >= 0 && position.x < 8 && position.y >= 0 && position.y < 8);
 }
@@ -11,7 +11,7 @@ int CH_position_isvalid(CH_position position)
 CH_board CH_set_piece(CH_board board, CH_piece piece, CH_position position)
 {
     /* A túlindexelés ellen, biztosítjuk az indexeket 0-7-ig*/
-    if(!CH_position_isvalid(position))return board;
+    if(!CH_is_on_board(position))return board;
     /* a megfelelő mező iválasztása a pozíció alapján, átváltás CH_position és tömbindex között*/
     board.squares[ position.y * 8 + position.x ].piece = piece;
     return board;
@@ -21,7 +21,7 @@ CH_board CH_set_piece(CH_board board, CH_piece piece, CH_position position)
 CH_piece CH_get_piece_from_position(CH_board board, CH_position position)
 {
     /* A túlindexelés ellen, biztosítjuk az indexeket 0-7-ig*/
-    if(!CH_position_isvalid(position))return(CH_piece){.color = NO_COLOR, .has_moved = 0, .type = NO_PIECE};
+    if(!CH_is_on_board(position))return(CH_piece){.color = NO_COLOR, .has_moved = 0, .type = NO_PIECE};
     return board.squares[ position.y * 8 + position.x ].piece;
 }
 
@@ -51,7 +51,7 @@ CH_board CH_create_empty_board()
 }
 
 /* Egy alapállásban lévő tábla küldése a hívónak*/
-CH_board CH_set_board_to_default()
+CH_board CH_create_default_board()
 {
     /* Az ürestábló jó alap, csak az alapállás bábuit kell beállítani*/
     CH_board default_board = CH_create_empty_board();

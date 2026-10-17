@@ -16,7 +16,7 @@ typedef enum CH_game_state_t  { PLAYING, DRAW, WHITE_WON, BLACK_WON}            
 
 /* A position indexelése bal felül kezdődik (A8) == (0,0) ; (H1) == (7,7) */
 typedef struct CH_position {int x, y;}                                           CH_position;
-typedef struct CH_move     {CH_position startPos, endPos; CH_move_t type;}       CH_move;
+typedef struct CH_move     {CH_position start_pos, end_pos; CH_move_t type;}     CH_move;
 typedef struct CH_piece    {CH_piece_t type; CH_color_t color; int has_moved;}   CH_piece;
 typedef struct CH_square   {CH_piece piece;}                                     CH_square;
 /* Egy bábu lépéseinek listáját tartalmazza, amik szabályosak*/

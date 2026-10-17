@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 /* Egy switch segítségével a megfelelő típust megfelelő karakterre váltja*/
-char get_char_for_piece_t(CH_piece_t type)
+char _get_char_for_piece_t(CH_piece_t type)
 {
     switch (type)
     {
@@ -19,7 +19,7 @@ char get_char_for_piece_t(CH_piece_t type)
 }
 
 /* Ugyanaz mint a piece-es, csak a színre ad karaktert*/
-char get_char_for_color_t(CH_color_t color)
+char _get_char_for_color_t(CH_color_t color)
 {
     switch (color)
     {
@@ -42,9 +42,9 @@ void UI_draw_board(CH_board board)
         {
             CH_piece piece = CH_get_piece_from_position(board,(CH_position){j,i});
             /* A szín alapján a charachter kiválasztása*/
-            char cc = get_char_for_color_t(piece.color);
+            char cc = _get_char_for_color_t(piece.color);
             /* A bábutípus alapján a karakter kiválasztása*/
-            char pc = get_char_for_piece_t(piece.type);
+            char pc = _get_char_for_piece_t(piece.type);
             printf("| %c%c ", cc,pc);
         }
         printf("|");
