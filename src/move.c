@@ -11,6 +11,7 @@ const CH_position UPLEFT    = {-1,-1};
 const CH_position DOWNRIGHT = { 1, 1};
 const CH_position DOWNLEFT  = {-1, 1};
 
+
 /* A szabályos lépéskeresés során használt függvény, mivel több másik függvény használja,
 külön függvény készült*/
 int _contains_position(CH_position* positions, CH_position position, int count)
@@ -25,9 +26,8 @@ int _contains_position(CH_position* positions, CH_position position, int count)
     return 0;
 }
 
-
 /*A BÁSTYA VEZÉR ÉS FUTÓ LÉPÉSTÍPUSÁNAK MEGHATÁROZÁSA, SZABÁLYELLENŐRZÉS*/
-CH_move _test_rook_queen_bishop(CH_board board, CH_move move,CH_piece piece)
+CH_move _set_rook_queen_bishop_move_t(CH_board board, CH_move move,CH_piece piece)
 {
     /* Korábban 3 külön function, nagyon hasonlóak voltak. Ezért egyben is működik*/
     /* A type alapján az offsetetk megállapítása*/
@@ -77,9 +77,8 @@ CH_move _test_rook_queen_bishop(CH_board board, CH_move move,CH_piece piece)
     return move;
 }
 
-
 /* A HUSZÁR LÉPÉSTÍPUSA, SZABÁLYELLENŐRZÉS*/
-CH_move _test_knight(CH_board board, CH_move move, CH_color_t color)
+CH_move _set_knightmove_t(CH_board board, CH_move move, CH_color_t color)
 {
     int valid_count = 0;
     /* Összes lehetséges relatív huszárlépés*/
@@ -102,9 +101,32 @@ CH_move _test_knight(CH_board board, CH_move move, CH_color_t color)
     return move;
 }
 
+/* gyaloglépés segédfüggvény */
+int _can_pawn_move_to(CH_board board, CH_position pos)
+{
+    return (CH_is_on_board(pos) && CH_get_piece_from_position(board,pos).type == NO_PIECE);
+}
+int _can_pawn_capture_to(CH_board board, CH_piece piece ,CH_position pos)
+{
+    CH_piece found_piece = CH_get_piece_from_position(board, pos);
+    if(!CH_is_on_board(pos) || found_piece.type != NO_PIECE)return 0;
+    if(piece.color != found_piece.color)return 1;
+    return 0;
+}
+
+/* GYALOG LÉPÉSTÍPUSA? SZABÁLYELLENŐRZÉS*/
+CH_move _set_pawnmove_t(CH_board board, CH_move move, CH_piece piece)
+{
+    return move;
+}
+
+CH_move _set_kingmove_t(CH_board board, CH_move move, CH_piece piece)
+{
+    return move;
+}
 
 /* Beállítja a lépés típusát, itt ellenőrzi a szabályosságot is*/
-CH_move _set_move_type(CH_board board, CH_move move)
+CH_move _set_move_t(CH_board board, CH_move move)
 {
     /* Kezelei a biztosan rossz lépéseket*/
     if(move.type == ERROR)return move; /*tudjuk már hogy az*/
@@ -120,11 +142,11 @@ CH_move _set_move_type(CH_board board, CH_move move)
         /* A ROOK BISHOP ÉS QUEEN esetekben is ugyanazt a függvényt hívjuk*/
         case ROOK:      
         case BISHOP:    
-        case QUEEN:     move = _test_rook_queen_bishop(board,move,moving_piece);  break;
-        case KNIGHT:    move = _test_knight(board,move,moving_piece.color);       break;  
-        case PAWN:                                                                break;
-        case KING:                                                                break;
-        default:        move.type = ERROR;                                        break;
+        case QUEEN:     move = _set_rook_queen_bishop_move_t(board,move,moving_piece);  break;
+        case KNIGHT:    move = _set_knightmove_t(board,move,moving_piece.color);        break;  
+        case PAWN:      move = _set_pawnmove_t(board,move,moving_piece);                break;
+        case KING:      move = _set_kingmove_t(board,move,moving_piece);                break;
+        default:        move.type = ERROR;                                              break;
     }
     return move;
 }
@@ -151,6 +173,7 @@ CH_color_t CH_opponent_color_t(CH_color_t color)
 /* Ha a move típusa normál, ez fut le*/
 CH_board CH_make_normal_move(CH_board board, CH_move move)
 {
+    board.en_passant_position = (CH_position){-1,-1};
     /* megnézzük mit mozgatunk*/
     CH_piece piece = CH_get_piece_from_position(board, move.start_pos);
     piece.has_moved = 1;
@@ -161,14 +184,17 @@ CH_board CH_make_normal_move(CH_board board, CH_move move)
     return board;
 }
 
-
 /* Ezzel a függvénnyel lehet mozgatni bármilyen bábut bárhova*/
 CH_board CH_make_move(CH_board board, CH_move move)
 {
-    move = _set_move_type(board,move);
+    move = _set_move_t(board,move);
     if(move.type == ERROR)return board;
     switch(move.type)
     {
+        case CASTLE_SHORT: break;
+        case CASTLE_LONG : break;
+        case EN_PASSANT  : break;
+        case DOUBLE_PAWN : break;
         default: board = CH_make_normal_move(board,move);
     }
     return board;

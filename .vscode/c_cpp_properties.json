@@ -5,9 +5,7 @@
       "name": "Win32-MinGW",
       "includePath": [
         "${workspaceFolder}/include",
-        "${workspaceFolder}/src",
-        "${workspaceFolder}/lib/include/SDL2",
-        "${workspaceFolder}/lib/include"
+        "${workspaceFolder}/src"
       ],
       "defines": [],
       "compilerPath": "C:/mingw64/bin/gcc.exe",
